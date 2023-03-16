@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('user_has_subjects', function (Blueprint $table) {
             $table->id();
+            $table->string('subjects');
+            $table->string('marks');
             $table->unsignedBigInteger('users_email');
             $table->foreign('users_email')->references('id')->on('users');
 
-            $table->unsignedBigInteger('subjects_id');
-            $table->foreign('subjects_id')->references('id')->on('subjects')->onDelete('cascade');
+            
         });
     }
 
