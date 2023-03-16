@@ -33,11 +33,24 @@ class SubjectController extends Controller
     }
 
 
-    public function delete($id)
+    public function delete(Request $request)
     {
-        
-       $user = User::find($id)->delete();
-       return redirect()->back();
+        $id=$request->id;
+    $tasks=$request->user_has_subjects;
 
+    $delete = DB::connection('mysql')
+          ->table("user_has_subjects")
+          ->where('users_email',$id)
+          ->delete();
+          if($delete){
+            $user = User::find($id)->delete();
+            return redirect()->back();
+     
+           }
+           else{
+            return redirect('/failed');
+           }
+
+      
     }
 }
